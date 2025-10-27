@@ -25,9 +25,13 @@ DOWN = (0, 1)
 LEFT = (-1, 0)
 RIGHT = (1, 0)
 
-# Global variables for screen and clock
-screen = None
-clock = None
+# Speed
+SPEED = 10
+
+# Initialize screen and clock at module level
+pygame.init()
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+clock = pygame.time.Clock()
 
 
 class GameObject:
@@ -170,11 +174,7 @@ def handle_keys(snake):
 
 def main():
     """Main game function."""
-    global screen, clock
-    pygame.init()
-    clock = pygame.time.Clock()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption('Изгиб Питона')
+    pygame.display.set_caption('Змейка')
 
     snake = Snake()
     apple = Apple()
@@ -182,6 +182,8 @@ def main():
     max_length = 1
 
     while running:
+        clock.tick(SPEED)
+
         running = handle_keys(snake)
         if not running:
             break
@@ -194,7 +196,7 @@ def main():
             max_length = max(max_length, snake.length)
 
             # Update window title with max length
-            title = f'Изгиб Питона - Рекорд: {max_length}'
+            title = f'Змейка - Рекорд: {max_length}'
             pygame.display.set_caption(title)
 
             # Find new position for apple that's not on snake
@@ -208,8 +210,6 @@ def main():
         snake.draw(screen)
         apple.draw(screen)
         pygame.display.update()
-
-        clock.tick(10)  # Control game speed
 
 
 if __name__ == '__main__':
