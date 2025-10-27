@@ -17,12 +17,17 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
+BOARD_BACKGROUND_COLOR = BLACK
 
 # Directions
 UP = (0, -1)
 DOWN = (0, 1)
 LEFT = (-1, 0)
 RIGHT = (1, 0)
+
+# Global variables for screen and clock
+screen = None
+clock = None
 
 
 class GameObject:
@@ -133,7 +138,7 @@ class Snake(GameObject):
                 (self.last[0], self.last[1]),
                 (GRID_SIZE, GRID_SIZE)
             )
-            pygame.draw.rect(surface, BLACK, rect)
+            pygame.draw.rect(surface, BOARD_BACKGROUND_COLOR, rect)
 
 
 def handle_keys(snake):
@@ -148,11 +153,9 @@ def handle_keys(snake):
     """
     for event in pygame.event.get():
         if event.type == QUIT:
-            pygame.quit()
             return False
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
-                pygame.quit()
                 return False
             elif event.key == K_UP and snake.direction != DOWN:
                 snake.next_direction = UP
@@ -167,6 +170,7 @@ def handle_keys(snake):
 
 def main():
     """Main game function."""
+    global screen, clock
     pygame.init()
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -200,7 +204,7 @@ def main():
                     break
 
         # Draw everything
-        screen.fill(BLACK)
+        screen.fill(BOARD_BACKGROUND_COLOR)
         snake.draw(screen)
         apple.draw(screen)
         pygame.display.update()
