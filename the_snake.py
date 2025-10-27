@@ -4,6 +4,7 @@ from pygame.locals import (
     KEYDOWN, K_ESCAPE, K_UP, K_DOWN, K_LEFT, K_RIGHT, QUIT
 )
 
+
 # Constants
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
